@@ -25,19 +25,29 @@ def request_handler(args):
     Handles the query input from the user to run the query_service main function
     """
     request = " ".join(args.request)
-    print("Reading your query...")
+    
+
     # query_service.main(query)
-    pass
 
 def upload_handler(args):
     """
     Handles the upload input from the user to run the csv_loader main function
     """
-    print("Uploading CSV to database...\n")
+    print("Uploading Image to database...\n")
+
+    r = args.redis
+    path = args.filepath
+
+    try:
+        r.publish('upload', path)
+        print(f"Uploaded Image")
+        time.sleep(1)
+    except Exception as e:
+        print(f"Error: {e}")
     # csv_loader.main(args.filepath)
     pass
 
-def create_parser():
+def create_parser(client):
     #create a parser
     parser = argparse.ArgumentParser()
 
@@ -47,12 +57,12 @@ def create_parser():
     #request subcommand
     parser_query = subparsers.add_parser("request")
     parser_query.add_argument("request", nargs="+") #joins string args together
-    parser_query.set_defaults(func=request_handler)
+    parser_query.set_defaults(func=request_handler, redis=client)
 
     #upload subcommand
     parser_upload = subparsers.add_parser("upload")
     parser_upload.add_argument("filepath", type=str)
-    parser_upload.set_defaults(func=upload_handler)
+    parser_upload.set_defaults(func=upload_handler, redis=client)
 
     print("\nInteractive CLI for Image Reteival System running. Type 'exit' to quit.")
     print("Available commands: request, upload")
@@ -96,10 +106,10 @@ def main():
     #run all the services
     processes = asyncio.run(run_services(services))
     print("Starting all services...")
-    time.sleep(3)
+    time.sleep(1)
 
     #create parsers
-    parser = create_parser()
+    parser = create_parser(r)
 
     #Complete assistance with ChatGPT:
     try:
@@ -131,7 +141,7 @@ def main():
 
     except Exception as e:
         print(f"Error: {e}")
-        logging.error(f"Something wrong happened., {e}", exc_info=True)
+        logging.error(f"Something wrong happened. {e}", exc_info=True)
     
     finally:
         asyncio.run(stop_services(processes))
