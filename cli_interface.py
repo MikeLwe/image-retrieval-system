@@ -7,11 +7,11 @@ import argparse
 import shlex
 import logging
 import redis
-import subprocess
+import asyncio
+import time
 
 #Run this command: docker run -d -p 6379:6379 --name images redis
 
-#ChatGPT helped
 #error log file config, works globally as the program should start here
 logging.basicConfig(
     filename="error_log.txt",          # file to write to
@@ -24,7 +24,7 @@ def request_handler(args):
     """
     Handles the query input from the user to run the query_service main function
     """
-    query = " ".join(args.query)
+    request = " ".join(args.request)
     print("Reading your query...")
     # query_service.main(query)
     pass
@@ -35,16 +35,50 @@ def upload_handler(args):
     """
     print("Uploading CSV to database...\n")
     # csv_loader.main(args.filepath)
-    return
+    pass
 
-def run_services():
+def create_parser():
+    #create a parser
+    parser = argparse.ArgumentParser()
+
+    #create the subparsers/commands and making the subparser required
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    #request subcommand
+    parser_query = subparsers.add_parser("request")
+    parser_query.add_argument("request", nargs="+") #joins string args together
+    parser_query.set_defaults(func=request_handler)
+
+    #upload subcommand
+    parser_upload = subparsers.add_parser("upload")
+    parser_upload.add_argument("filepath", type=str)
+    parser_upload.set_defaults(func=upload_handler)
+
+    print("\nInteractive CLI for Image Reteival System running. Type 'exit' to quit.")
+    print("Available commands: request, upload")
+
+    return parser
+
+async def run_services(services):
     """
     Starts all of the services required for the program
     """
-    subprocess.Popen(["python, upload_service.py"])
-    subprocess.Popen(["python, image_service.py"])
-    subprocess.Popen(["python, document_db_service.py"])
-    subprocess.Popen(["python, embedding_service.py"])
+    procs = []
+
+    for file in services:
+        p = await asyncio.create_subprocess_exec("python", file)
+        procs.append(p)
+
+    return procs
+
+async def stop_services(processes):
+    """
+    End all running services
+    """
+    for proc in processes:
+        proc.terminate()
+
+    print("All processes stopped.")
 
 def main():
     """
@@ -60,30 +94,16 @@ def main():
     r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
 
     #run all the services
-    run_services()
+    processes = asyncio.run(run_services(services))
+    print("Starting all services...")
+    time.sleep(3)
 
-    #create a parser
-    parser = argparse.ArgumentParser()
-
-    #create the subparsers/commands and making the subparser required
-    subparsers = parser.add_subparsers(dest="command", required=True)
-
-    #request subcommand
-    parser_query = subparsers.add_parser("request")
-    parser_query.add_argument("request", nargs="+") #joins string args together
-    parser_query.set_defaults(func=request_handler)
-
-    #upload subcommand
-    parser_upload = subparsers.add_parser("upload")
-    parser_upload.add_argument("filepath", type=str)
-    parser_upload.set_defaults(func=csv_handler)
-
-    print("Interactive CLI for DataSheet AI running. Type 'exit' to quit.")
-    print("Available commands: request, upload")
+    #create parsers
+    parser = create_parser()
 
     #Complete assistance with ChatGPT:
-    while True:
-        try:
+    try:
+        while True:
             #adds the classic > in the terminal
             user_input = input("> ").strip()
             #method of closing the CLI Interface
@@ -104,15 +124,17 @@ def main():
             if hasattr(args, "func"):
                 args.func(args)
             else:
-                print("Unknown command. Available: query, upload")
+                print("Unknown command. Available: request, upload")
 
-        except KeyboardInterrupt as e:
-            print("\nShutting all services down...")
-            
+    except KeyboardInterrupt as e:
+        print("\nShutting all services down...")
 
-        except Exception as e:
-            print(f"Error: {e}")
-            logging.
+    except Exception as e:
+        print(f"Error: {e}")
+        logging.error(f"Something wrong happened., {e}", exc_info=True)
+    
+    finally:
+        asyncio.run(stop_services(processes))
 
 if __name__ == '__main__':
     main()

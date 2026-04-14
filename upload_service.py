@@ -11,4 +11,4 @@ def main(datapath):
     start_upload_service(portnum)
 
 if __name__ == '__main__':
-    main()
+    print("Upload Service Running...")
