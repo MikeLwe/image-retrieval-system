@@ -2,9 +2,22 @@
 Upload Service to tell other services that an Upload has been requested
 """
 import redis
+import base64
+import asyncio
+import logging
 portnum = 6379
 
-def main():
+logger = logging.getLogger(__name__)
+
+def encode_image(image_path):
+    """
+    Encode an Image into Base64
+    """
+    with open(image_path, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+        return encoded_string.decode('utf-8')
+
+async def main():
     #create a redis client running on an image I am running
     client = redis.Redis(host='localhost', port=portnum, decode_responses=True)
 
@@ -18,8 +31,13 @@ def main():
             # 'message' is a dict. type 'message' contains actual data.
             if message['type'] == 'message':
                 print(f"Received: {message['data']}")
+                encoded_img = encode_image(message['data'])
+                client.publish('image_uploaded', encoded_img)
+                print(f"Image Uploaded")
+                await asyncio.sleep(1)
 
     except Exception:
+        logging.error(f"Something wrong happened. {e}", exc_info=True)
         print("ruh roh")
 
     finally:
@@ -33,4 +51,4 @@ def main():
 
 if __name__ == '__main__':
     print("Upload Service Running...")
-    main()
+    asyncio.run(main())

@@ -44,8 +44,6 @@ def upload_handler(args):
         time.sleep(1)
     except Exception as e:
         print(f"Error: {e}")
-    # csv_loader.main(args.filepath)
-    pass
 
 def create_parser(client):
     #create a parser
@@ -105,8 +103,8 @@ def main():
 
     #run all the services
     processes = asyncio.run(run_services(services))
-    print("Starting all services...")
-    time.sleep(1)
+    print("Starting all services...\n")
+    time.sleep(1.5)
 
     #create parsers
     parser = create_parser(r)
