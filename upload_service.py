@@ -7,7 +7,13 @@ import asyncio
 import logging
 portnum = 6379
 
-logger = logging.getLogger(__name__)
+#error log file config, works globally as the program should start here
+logging.basicConfig(
+    filename="error_log.txt",          # file to write to
+    level=logging.ERROR,           # only log errors and above
+    #time at error - name of file error came from - severity of error - message
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 
 def encode_image(image_path):
     """
@@ -36,7 +42,7 @@ async def main():
                 print(f"Image Uploaded")
                 await asyncio.sleep(1)
 
-    except Exception:
+    except Exception as e:
         logging.error(f"Something wrong happened. {e}", exc_info=True)
         print("ruh roh")
 

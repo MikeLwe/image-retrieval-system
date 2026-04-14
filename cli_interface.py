@@ -12,7 +12,7 @@ import time
 
 #Run this command: docker run -d -p 6379:6379 --name images redis
 
-#error log file config, works globally as the program should start here
+#error log file config
 logging.basicConfig(
     filename="error_log.txt",          # file to write to
     level=logging.ERROR,           # only log errors and above
@@ -40,8 +40,7 @@ def upload_handler(args):
 
     try:
         r.publish('upload', path)
-        print(f"Uploaded Image")
-        time.sleep(1)
+        time.sleep(2.5)
     except Exception as e:
         print(f"Error: {e}")
 
@@ -127,7 +126,10 @@ def main():
                 continue
 
             # Parse arguments for subcommands
-            args = parser.parse_args(args_list)
+            try:
+                args = parser.parse_args(args_list)
+            except SystemExit:
+                continue
             #check if command exists by using the argument (first word of input)
             if hasattr(args, "func"):
                 args.func(args)
