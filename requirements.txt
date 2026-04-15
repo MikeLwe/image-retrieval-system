@@ -2,4 +2,5 @@ redis
 aiofiles
 asyncio
 dataclasses-json
+pytest-asyncio
 # prompt_toolkit

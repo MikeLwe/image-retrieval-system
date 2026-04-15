@@ -44,6 +44,9 @@ async def upload_handler(args):
         print(f"Error: {e}")
 
 def create_parser(client):
+    """
+    Support function for making a parser of the user input
+    """
     #create a parser
     parser = argparse.ArgumentParser()
 
@@ -145,7 +148,6 @@ async def main():
                 continue
 
             if len(args_list) < 2:
-                print("bruh")
                 if args_list[0] == "request":
                     print("Command request is missing argument <description>.\n")
                 elif args_list[0] == "uplaod":

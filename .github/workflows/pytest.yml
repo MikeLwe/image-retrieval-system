@@ -1,0 +1,36 @@
+name: Test Image Retrieval System
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  Tests:
+    name: Test ${{ matrix.test_name }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - test_name: CLI Interface
+            file_name: cli_interface_test.py
+          # - test_name: Upload Service
+          #   file_name: upload_service_test.py
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.13
+
+      - run: pip install -r requirements.txt
+
+      - name: Run Coverage Tests
+        run: |
+          coverage run -m pytest -v tests/${{ matrix.file_name }}
+          coverage report
