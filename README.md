@@ -16,7 +16,7 @@
 #### Image Process
 - Get objects from the image
 - Listens to the incoming raw image content from the Upload (Channel: 'image_uploaded')
-- Listens to incoming requests from CLI Interface (Channel: 'request_made')
+- Listens to incoming requests from CLI Interface (Channel: 'request')
 - Broadcasts that the image information has been processed (this will be a couple of vertices/coordinates on the image along with a label saying all of the boxes the image has) (Channel: 'image_processed')
 - Broadcasts that the request information has been processed (this will be text being converted by some AI process to be read by the embedding service properly) (Channel: 'text_processed')
 
@@ -40,5 +40,15 @@
 - Broadcasts that the content has been saved (Channel: 'stored_confirm')
 - Broadcasts information of vectors near the user input (Channel: 'info_gathered')
 
+Why do pubsub?
+- continue system when one stops working
+- people can still request if upload stops working
+- this makes the software extendable and async, allowing that new system to work when others are broken
+- use only part of the system to allow other systems to do other things while it is not focused on the first query sent
+- because of async, each service can run on its own CPU/GPU/OS (mac, windows, linux)
+- 
 
+1. message architecture
+2. unit test by urself then with ai
+3. code review with ai
 

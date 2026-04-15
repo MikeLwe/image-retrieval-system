@@ -1,0 +1,131 @@
+2026-04-14 18:25:34,804 - root - ERROR - Something wrong happened. asyncio.run() cannot be called from a running event loop
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 54, in main
+    encoded_img = asyncio.run(encode_image(message['data']))
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 191, in run
+    raise RuntimeError(
+        "asyncio.run() cannot be called from a running event loop")
+RuntimeError: asyncio.run() cannot be called from a running event loop
+2026-04-14 18:28:01,179 - root - ERROR - Something wrong happened. asyncio.run() cannot be called from a running event loop
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 54, in main
+    encoded_img = await asyncio.run(encode_image(message['data']))
+                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 191, in run
+    raise RuntimeError(
+        "asyncio.run() cannot be called from a running event loop")
+RuntimeError: asyncio.run() cannot be called from a running event loop
+2026-04-14 18:33:32,313 - root - ERROR - Something wrong happened. asyncio.run() cannot be called from a running event loop
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 54, in main
+    encoded_img = await asyncio.run(encode_image(message['data']))
+                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 191, in run
+    raise RuntimeError(
+        "asyncio.run() cannot be called from a running event loop")
+RuntimeError: asyncio.run() cannot be called from a running event loop
+2026-04-14 18:34:08,632 - root - ERROR - Something wrong happened. asyncio.run() cannot be called from a running event loop
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 54, in main
+    encoded_img = await asyncio.run(encode_image(message['data']))
+                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 191, in run
+    raise RuntimeError(
+        "asyncio.run() cannot be called from a running event loop")
+RuntimeError: asyncio.run() cannot be called from a running event loop
+2026-04-14 19:08:07,813 - root - ERROR - Something wrong happened. cannot access local variable 'args' where it is not associated with a value
+Traceback (most recent call last):
+  File "c:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\cli_interface.py", line 129, in main
+    args = asyncio.create_task(args.func(args))
+                               ^^^^
+UnboundLocalError: cannot access local variable 'args' where it is not associated with a value
+2026-04-14 19:12:09,102 - root - ERROR - Something wrong happened. 'async_generator' object is not iterable
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 49, in main
+    for message in pubsub.listen():
+                   ~~~~~~~~~~~~~^^
+TypeError: 'async_generator' object is not iterable
+2026-04-15 11:49:00,962 - root - ERROR - Something wrong happened. 'async_generator' object is not iterable
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 49, in main
+    for message in pubsub.listen():
+                   ~~~~~~~~~~~~~^^
+TypeError: 'async_generator' object is not iterable
+2026-04-15 11:53:12,982 - root - ERROR - Something wrong happened. 'async_generator' object is not iterable
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 49, in main
+    for message in pubsub.listen():
+                   ~~~~~~~~~~~~~^^
+TypeError: 'async_generator' object is not iterable
+2026-04-15 11:53:54,577 - root - ERROR - Something wrong happened. 'async_generator' object is not iterable
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 49, in main
+    for message in pubsub.listen():
+                   ~~~~~~~~~~~~~^^
+TypeError: 'async_generator' object is not iterable
+2026-04-15 12:00:27,042 - root - ERROR - Something wrong happened. a bytes-like object is required, not 'coroutine'
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 55, in main
+    encoded_img = await encode_image(message['data'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 37, in encode_image
+    encoded_string = base64.b64encode(image_file.read())
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\base64.py", line 58, in b64encode
+    encoded = binascii.b2a_base64(s, newline=False)
+TypeError: a bytes-like object is required, not 'coroutine'
+2026-04-15 14:22:03,864 - root - ERROR - Something wrong happened. [Errno 2] No such file or directory: 'logo.png'
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 44, in main
+    encoded_img = await encode_image(message['data'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 25, in encode_image
+    async with aiofiles.open(image_path, "rb") as image_file:
+               ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 73, in __aenter__
+    return await self
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 69, in __await__
+    self._obj = yield from self._coro.__await__()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\threadpool\__init__.py", line 93, in _open
+    f = await loop.run_in_executor(executor, cb)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: 'logo.png'
+2026-04-15 14:22:33,460 - root - ERROR - Something wrong happened. a bytes-like object is required, not 'coroutine'
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 44, in main
+    encoded_img = await encode_image(message['data'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 26, in encode_image
+    encoded_string = base64.b64encode(image_file.read())
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\base64.py", line 58, in b64encode
+    encoded = binascii.b2a_base64(s, newline=False)
+TypeError: a bytes-like object is required, not 'coroutine'
+2026-04-15 14:31:44,855 - root - ERROR - Something wrong happened. [Errno 2] No such file or directory: 'test'
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 44, in main
+    encoded_img = await encode_image(message['data'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 25, in encode_image
+    async with aiofiles.open(image_path, "rb") as image_file:
+               ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 73, in __aenter__
+    return await self
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 69, in __await__
+    self._obj = yield from self._coro.__await__()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\threadpool\__init__.py", line 93, in _open
+    f = await loop.run_in_executor(executor, cb)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: 'test'
+2026-04-15 14:40:31,255 - root - ERROR - Something wrong happened. list index out of range
+Traceback (most recent call last):
+  File "c:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\cli_interface.py", line 146, in main
+    if not args_list[1]:
+           ~~~~~~~~~^^^
+IndexError: list index out of range

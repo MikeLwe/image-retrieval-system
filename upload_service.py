@@ -1,10 +1,13 @@
 """
 Upload Service to tell other services that an Upload has been requested
 """
-import redis
+import redis.asyncio as redis
 import base64
 import asyncio
 import logging
+import aiofiles
+from msg_structure import ImagePayload, ImageData
+
 portnum = 6379
 
 #error log file config, works globally as the program should start here
@@ -15,12 +18,12 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 
-def encode_image(image_path):
+async def encode_image(image_path):
     """
     Encode an Image into Base64
     """
-    with open(image_path, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read())
+    async with aiofiles.open(image_path, "rb") as image_file:
+        encoded_string = base64.b64encode(await image_file.read())
         return encoded_string.decode('utf-8')
 
 async def main():
@@ -29,27 +32,29 @@ async def main():
 
     #create pubsub instance 
     pubsub = client.pubsub()
-    pubsub.subscribe('upload')
+    await pubsub.subscribe('upload')
 
     try:
         # message is a dict like {'type': 'message', 'pattern': None, 'channel': 'my_channel', 'data': '...'}
-        for message in pubsub.listen():
+        async for message in pubsub.listen():
             # 'message' is a dict. type 'message' contains actual data.
             if message['type'] == 'message':
-                print(f"Received: {message['data']}")
-                encoded_img = encode_image(message['data'])
-                client.publish('image_uploaded', encoded_img)
+                print(f"Received: {message['data']}") #REMOVE LATER
+
+                encoded_img = await encode_image(message['data'])
+                #include more information in this payload------------------------
+                await client.publish('image_uploaded', encoded_img)
                 print(f"Image Uploaded")
-                await asyncio.sleep(1)
+                # await asyncio.sleep(1)
 
     except Exception as e:
         logging.error(f"Something wrong happened. {e}", exc_info=True)
         print("ruh roh")
 
     finally:
-        pubsub.unsubscribe()
-        pubsub.close()
-        client.close()
+        await pubsub.unsubscribe() #remove later
+        await pubsub.aclose()
+        await client.aclose()
 
     
     print("Upload Service: Call Received!")

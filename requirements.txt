@@ -1,0 +1,5 @@
+redis
+aiofiles
+asyncio
+dataclasses-json
+# prompt_toolkit

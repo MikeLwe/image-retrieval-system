@@ -6,7 +6,7 @@ CLI Interface to broadcast user uploading a file or requesting images
 import argparse
 import shlex
 import logging
-import redis
+import redis.asyncio as redis
 import asyncio
 import time
 
@@ -20,7 +20,7 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 
-def request_handler(args):
+async def request_handler(args):
     """
     Handles the query input from the user to run the query_service main function
     """
@@ -29,7 +29,7 @@ def request_handler(args):
 
     # query_service.main(query)
 
-def upload_handler(args):
+async def upload_handler(args):
     """
     Handles the upload input from the user to run the csv_loader main function
     """
@@ -39,8 +39,7 @@ def upload_handler(args):
     path = args.filepath
 
     try:
-        r.publish('upload', path)
-        time.sleep(2.5)
+        await r.publish('upload', path)
     except Exception as e:
         print(f"Error: {e}")
 
@@ -62,7 +61,7 @@ def create_parser(client):
     parser_upload.set_defaults(func=upload_handler, redis=client)
 
     print("\nInteractive CLI for Image Reteival System running. Type 'exit' to quit.")
-    print("Available commands: request, upload")
+    print("Available commands:\n request <description>\n upload <filepath>\n")
 
     return parser
 
@@ -83,11 +82,22 @@ async def stop_services(processes):
     End all running services
     """
     for proc in processes:
-        proc.terminate()
+        try:
+            proc.terminate()
+        #in case processes are all terminated already
+        except ProcessLookupError:
+                continue
+        
+    #AI code review help:   
+    for proc in processes:
+        try:
+            await proc.wait()
+        except Exception:
+            pass
 
     print("All processes stopped.")
 
-def main():
+async def main():
     """
     Runs the CLI Interface
     """
@@ -101,18 +111,19 @@ def main():
     r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
 
     #run all the services
-    processes = asyncio.run(run_services(services))
+    processes = await run_services(services)
     print("Starting all services...\n")
     time.sleep(1.5)
 
     #create parsers
     parser = create_parser(r)
 
-    #Complete assistance with ChatGPT:
     try:
         while True:
             #adds the classic > in the terminal
-            user_input = input("> ").strip()
+            # user_input = await asyncio.to_thread(input,"> ")
+            user_input = await asyncio.to_thread(input)
+            user_input = user_input.strip()
             #method of closing the CLI Interface
             if user_input.lower() in ("exit", "quit"):
                 print("Closing the Interactive CLI...")
@@ -124,6 +135,22 @@ def main():
             args_list = shlex.split(user_input)
             if not args_list:
                 continue
+            
+            #AI suggestion for catching errors:
+            valid_commands = {"request", "upload"}
+
+            if args_list[0] not in valid_commands:
+                print(f"Unknown command: {args_list[0]}")
+                print("Available commands:\n request <description>\n upload <filepath>\n")
+                continue
+
+            if len(args_list) < 2:
+                print("bruh")
+                if args_list[0] == "request":
+                    print("Command request is missing argument <description>.\n")
+                elif args_list[0] == "uplaod":
+                    print("Command upload is missing argument <filepath>.\n")
+                continue
 
             # Parse arguments for subcommands
             try:
@@ -132,7 +159,7 @@ def main():
                 continue
             #check if command exists by using the argument (first word of input)
             if hasattr(args, "func"):
-                args.func(args)
+                asyncio.create_task(args.func(args))
             else:
                 print("Unknown command. Available: request, upload")
 
@@ -144,7 +171,7 @@ def main():
         logging.error(f"Something wrong happened. {e}", exc_info=True)
     
     finally:
-        asyncio.run(stop_services(processes))
+        await stop_services(processes)
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())
