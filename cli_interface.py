@@ -39,13 +39,13 @@ async def upload_handler(args):
     path = args.filepath
 
     try:
-        if args.is_test:
-            await asyncio.sleep(0.5)
+        # if args.is_test:
+        #     await asyncio.sleep(0.5)
         await r.publish('upload', path)
     except Exception as e:
         print(f"Error: {e}")
 
-def create_parser(client, is_test):
+def create_parser(client, is_test = False):
     """
     Support function for making a parser of the user input
     """
