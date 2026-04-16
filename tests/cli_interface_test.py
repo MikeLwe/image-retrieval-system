@@ -37,6 +37,7 @@ async def test_cli_1():
     
     stdout, _ = await proc.communicate()
     output = stdout.decode()
+    print(output)
     assert "Uploading Image to database" in output
     assert "All processes stopped." in output
 
