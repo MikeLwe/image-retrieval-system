@@ -13,6 +13,7 @@ class ImageData:
     """
     image_id: int
     path: str
+    encoded_data: bytes
     objects: dict | None = None
     encoding: str | None = None
 

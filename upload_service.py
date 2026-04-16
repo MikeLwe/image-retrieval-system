@@ -27,10 +27,11 @@ async def encode_image(image_path):
         encoded_string = base64.b64encode(await image_file.read())
         return encoded_string.decode('utf-8')
 
-async def structure_image():
+async def structure_image(filepath, encoding):
     """
     Compact all image information into one object
     """
+    return filepath
 
 async def main():
     #create a redis client running on an image I am running
@@ -48,8 +49,9 @@ async def main():
                 print(f"Received: {message['data']}") #REMOVE LATER
 
                 encoded_img = await encode_image(message['data'])
+                image = await structure_image(message['data'], encoded_img)
                 #include more information in this payload------------------------
-                await client.publish('image_uploaded', encoded_img)
+                await client.publish('image_uploaded', image)
                 print(f"Image Uploaded")
                 # await asyncio.sleep(1)
 
