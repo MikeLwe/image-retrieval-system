@@ -7,6 +7,7 @@ import asyncio
 import logging
 import aiofiles
 from msg_structure import ImagePayload, ImageData
+import os
 
 portnum = 6379
 
@@ -25,6 +26,11 @@ async def encode_image(image_path):
     async with aiofiles.open(image_path, "rb") as image_file:
         encoded_string = base64.b64encode(await image_file.read())
         return encoded_string.decode('utf-8')
+
+async def structure_image():
+    """
+    Compact all image information into one object
+    """
 
 async def main():
     #create a redis client running on an image I am running
