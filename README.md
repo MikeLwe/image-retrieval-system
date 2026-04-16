@@ -2,6 +2,7 @@
 ### Using natural language to lookup images based on the image's content
 
 ## Design
+![Project Outline](Program_Structure.png)
 #### CLI-interface
 - Controls if the user is trying to upload or request an image
 - Listens to user input and update from the database service
@@ -22,8 +23,8 @@
 
 #### Document DB Service
 - Stores information relating to an image
-- Listens to the Image Process and takes in the position information and labels, pairing it to the image (Channel: 'image_processed')
-- Listebs for request to gather info (Channel: 'info_gathered')
+- Listens to the Image Process and takes in the position information and labels, pairing it to the image (Channels: 'image_processed' for when image is processed, 'image_stored' for when image stored in vector index)
+- Listens for request to gather info (Channel: 'info_gathered')
 - Broadcasts that the content of the image has been saved (for the CLI Interface) (Channel: 'stored_confirm')
 - Broadcasts the information from the vector index (Channel: 'request_completed')
 
@@ -37,7 +38,7 @@
 - Stores vector embedding
 - Listens for the Embedding Service, asking for the vectorized information of an image (Channel: 'image_embedded')
 - Listend for the Embedding Service, asking for the user input embedding to compare this embedding with existing ones (Channel: 'text_embedded')
-- Broadcasts that the content has been saved (Channel: 'stored_confirm')
+- Broadcasts that the content has been saved (Channel: 'image_stored')
 - Broadcasts information of vectors near the user input (Channel: 'info_gathered')
 
 Why do pubsub?
