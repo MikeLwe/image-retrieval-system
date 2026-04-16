@@ -32,5 +32,5 @@ jobs:
 
       - name: Run Coverage Tests
         run: |
-          coverage run -m pytest -v tests/${{ matrix.file_name }}
+          coverage run -m pytest -v -s tests/${{ matrix.file_name }}
           coverage report
