@@ -1,8 +1,9 @@
 import pytest
 import redis.asyncio as redis
-from unittest.mock import patch
-import cli_interface
+from unittest.mock import AsyncMock
 import asyncio
+import time
+from cli_interface import create_parser
 
 # @pytest.mark.asyncio
 # async def test_redis_publish():
@@ -17,8 +18,8 @@ import asyncio
 #     await r.aclose()
 
 @pytest.mark.asyncio
-async def test_async_1():
-    """Test CLI Interface being Asynchronous"""
+async def test_cli_1():
+    """Test CLI Interface functions"""
     # cli_interface.main()
     proc = await asyncio.create_subprocess_exec(
         "python", "cli_interface.py",
@@ -37,3 +38,38 @@ async def test_async_1():
     stdout, _ = await proc.communicate()
     output = stdout.decode()
     assert "Uploading Image to database" in output
+
+@pytest.mark.asyncio
+#AI support with this
+async def test_async_1():
+    """Test the asynchronous nature of CLI"""
+    mock_redis = AsyncMock()
+
+    # Add artificial delay to simulate real async work
+    async def fake_publish(channel, msg):
+        await asyncio.sleep(0.5)
+
+    mock_redis.publish.side_effect = fake_publish
+    parser = create_parser(mock_redis)
+    commands = [
+        "upload images/logo.png",
+        "upload images/mascot.png",
+        "upload images/seal.png",
+    ]
+
+    tasks = set()
+
+    start = time.perf_counter()
+
+    for cmd in commands:
+        args = parser.parse_args(cmd.split())
+        task = asyncio.create_task(args.func(args))
+        tasks.add(task)
+
+    await asyncio.gather(*tasks)
+
+    duration = time.perf_counter() - start
+
+    # If sequential: ~1.5s (running 3 times)
+    # If concurrent: < 1s (running 3 in aasync)
+    assert duration < 1.0

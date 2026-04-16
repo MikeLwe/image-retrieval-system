@@ -39,11 +39,13 @@ async def upload_handler(args):
     path = args.filepath
 
     try:
+        if args.is_test:
+            await asyncio.sleep(0.5)
         await r.publish('upload', path)
     except Exception as e:
         print(f"Error: {e}")
 
-def create_parser(client):
+def create_parser(client, is_test):
     """
     Support function for making a parser of the user input
     """
@@ -56,12 +58,12 @@ def create_parser(client):
     #request subcommand
     parser_query = subparsers.add_parser("request")
     parser_query.add_argument("request", nargs="+") #joins string args together
-    parser_query.set_defaults(func=request_handler, redis=client)
+    parser_query.set_defaults(func=request_handler, redis=client, test=is_test)
 
     #upload subcommand
     parser_upload = subparsers.add_parser("upload")
     parser_upload.add_argument("filepath", type=str)
-    parser_upload.set_defaults(func=upload_handler, redis=client)
+    parser_upload.set_defaults(func=upload_handler, redis=client, test=is_test)
 
     print("\nInteractive CLI for Image Reteival System running. Type 'exit' to quit.")
     print("Available commands:\n request <description>\n upload <filepath>\n")
@@ -100,7 +102,7 @@ async def stop_services(processes):
 
     print("All processes stopped.")
 
-async def main():
+async def main(is_test = False):
     """
     Runs the CLI Interface
     """
@@ -119,7 +121,7 @@ async def main():
     time.sleep(1.5)
 
     #create parsers
-    parser = create_parser(r)
+    parser = create_parser(r, is_test)
 
     try:
         while True:

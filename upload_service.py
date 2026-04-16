@@ -53,7 +53,6 @@ async def main():
                 #include more information in this payload------------------------
                 await client.publish('image_uploaded', image)
                 print(f"Image Uploaded")
-                # await asyncio.sleep(1)
 
     except Exception as e:
         logging.error(f"Something wrong happened. {e}", exc_info=True)
