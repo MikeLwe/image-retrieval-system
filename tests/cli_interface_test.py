@@ -38,11 +38,12 @@ async def test_cli_1():
     stdout, _ = await proc.communicate()
     output = stdout.decode()
     assert "Uploading Image to database" in output
+    assert "All processes stopped." in output
 
 @pytest.mark.asyncio
 #AI support with this
 async def test_async_1():
-    """Test the asynchronous nature of CLI"""
+    """Test the asynchronous parser of CLI"""
     mock_redis = AsyncMock()
 
     # Add artificial delay to simulate real async work
