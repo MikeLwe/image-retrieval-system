@@ -34,6 +34,9 @@ async def structure_image(filepath, encoding):
     return filepath
 
 async def main():
+    """
+    Starts the Upload Service
+    """
     #create a redis client running on an image I am running
     client = redis.Redis(host='localhost', port=portnum, decode_responses=True)
 
@@ -46,17 +49,23 @@ async def main():
         async for message in pubsub.listen():
             # 'message' is a dict. type 'message' contains actual data.
             if message['type'] == 'message':
-                print(f"Received: {message['data']}") #REMOVE LATER
+                try:
+                    print(f"Received: {message['data']}") #REMOVE LATER
 
-                encoded_img = await encode_image(message['data'])
-                image = await structure_image(message['data'], encoded_img)
-                #include more information in this payload------------------------
-                await client.publish('image_uploaded', image)
-                print(f"Image Uploaded")
+                    encoded_img = await encode_image(message['data'])
+                    image = await structure_image(message['data'], encoded_img)
+                    #include more information in this payload------------------------
+                    await client.publish('image_uploaded', image)
+                    print(f"Image Uploaded")
+
+                    #In case the user has the wrong file input
+                except FileNotFoundError as e:
+                    logging.error(f"File not found. {e}", exc_info=True)
+                    print("File does not exist. Please check your input.")
 
     except Exception as e:
         logging.error(f"Something wrong happened. {e}", exc_info=True)
-        print("ruh roh")
+        print("ruh roh fatal error")
 
     finally:
         await pubsub.unsubscribe() #remove later

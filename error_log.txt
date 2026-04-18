@@ -129,3 +129,83 @@ Traceback (most recent call last):
     if not args_list[1]:
            ~~~~~~~~~^^^
 IndexError: list index out of range
+2026-04-16 17:21:32,864 - root - ERROR - Something wrong happened. [Errno 2] No such file or directory: 'images/mascot/png'
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 51, in main
+    encoded_img = await encode_image(message['data'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 26, in encode_image
+    async with aiofiles.open(image_path, "rb") as image_file:
+               ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 73, in __aenter__
+    return await self
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 69, in __await__
+    self._obj = yield from self._coro.__await__()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\threadpool\__init__.py", line 93, in _open
+    f = await loop.run_in_executor(executor, cb)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: 'images/mascot/png'
+2026-04-16 17:24:53,627 - root - ERROR - Something wrong happened. [Errno 2] No such file or directory: 'bruh'
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 51, in main
+    encoded_img = await encode_image(message['data'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 26, in encode_image
+    async with aiofiles.open(image_path, "rb") as image_file:
+               ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 73, in __aenter__
+    return await self
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 69, in __await__
+    self._obj = yield from self._coro.__await__()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\threadpool\__init__.py", line 93, in _open
+    f = await loop.run_in_executor(executor, cb)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: 'bruh'
+2026-04-16 17:28:37,735 - root - ERROR - File not found. [Errno 2] No such file or directory: 'bruh'
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 52, in main
+    encoded_img = await encode_image(message['data'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 26, in encode_image
+    async with aiofiles.open(image_path, "rb") as image_file:
+               ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 73, in __aenter__
+    return await self
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 69, in __await__
+    self._obj = yield from self._coro.__await__()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\threadpool\__init__.py", line 93, in _open
+    f = await loop.run_in_executor(executor, cb)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: 'bruh'
+2026-04-16 17:28:41,317 - root - ERROR - File not found. [Errno 2] No such file or directory: 'bruh'
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 52, in main
+    encoded_img = await encode_image(message['data'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 26, in encode_image
+    async with aiofiles.open(image_path, "rb") as image_file:
+               ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 73, in __aenter__
+    return await self
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 69, in __await__
+    self._obj = yield from self._coro.__await__()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\threadpool\__init__.py", line 93, in _open
+    f = await loop.run_in_executor(executor, cb)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: 'bruh'

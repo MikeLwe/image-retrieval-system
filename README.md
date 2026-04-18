@@ -53,3 +53,31 @@ Why do pubsub?
 2. unit test by urself then with ai
 3. code review with ai
 
+Message Structure Options:
+1. what is currently here (no DB)
+
+Pros: 
+- Everything you want is provided in the message
+- Simpler Module (doesn't need to know what it is sending)
+
+Cons: 
+- No backup option in case the message is lost
+- Bloated Message 
+
+2. have no data related to the image, only id's, call to get more data from database (API)
+
+Pros: 
+- 
+
+Cons:
+- 
+
+3. store in DB, no data (yes DB)
+
+Pros: 
+- Response/Results of the message is persistent?
+- Split responsibility
+
+Cons: 
+- If other listeners use the databases at the same, this is a problem when requesting or uploading the database
+- Multiple people being able to access the database is a security issue

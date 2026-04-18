@@ -9,6 +9,7 @@ import logging
 import redis.asyncio as redis
 import asyncio
 import time
+from msg_structure import ImagePayload, ImageData, RequestPayload
 
 #Run this command: docker run -d -p 6379:6379 --name images redis
 
@@ -20,14 +21,21 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 
+i = 0 #temporary ID solution
+
 async def request_handler(args):
     """
     Handles the query input from the user to run the query_service main function
     """
     request = " ".join(args.request)
     
+    r = args.redis
+    request = args.request
 
-    # query_service.main(query)
+    try:
+        await r.publish('request', request)
+    except Exception as e:
+        print(f"Error: {e}")
 
 async def upload_handler(args):
     """
@@ -37,13 +45,35 @@ async def upload_handler(args):
 
     r = args.redis
     path = args.filepath
+    img_id = f"img_{i}"
+
+    i = i + 1 #Temporary ID Solution
+
+    upload_payload = await structure_image(path, img_id)
 
     try:
-        # if args.is_test:
-        #     await asyncio.sleep(0.5)
-        await r.publish('upload', path)
+        await r.publish('upload', upload_payload)
     except Exception as e:
         print(f"Error: {e}")
+
+async def structure_image(filepath):
+    """
+    Compact image information into an event
+    """
+    image_payload = await ImagePayload.create(
+        path=filepath,
+        image_id="img_123" #UPDATE THIS LATER ------
+    )
+    return image_payload
+
+async def structure_request(query):
+    """
+    Convert query into an event
+    """
+    request_payload = await RequestPayload.create(
+        query=query
+    )
+    return request_payload
 
 def create_parser(client, is_test = False):
     """
@@ -91,7 +121,7 @@ async def stop_services(processes):
             proc.terminate()
         #in case processes are all terminated already
         except ProcessLookupError:
-                continue
+            continue
         
     #AI code review help:   
     for proc in processes:
@@ -110,7 +140,8 @@ async def main(is_test = False):
     services = ["upload_service.py",
                 "image_service.py",
                 "document_db_service.py",
-                "embedding_service.py"]
+                "embedding_service.py",
+                "vector_index_service.py"]
 
     #create redis client for cli-interface
     r = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
