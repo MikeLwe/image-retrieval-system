@@ -56,13 +56,13 @@ async def upload_handler(args):
     except Exception as e:
         print(f"Error: {e}")
 
-async def structure_image(filepath):
+async def structure_image(filepath, img_id):
     """
     Compact image information into an event
     """
     image_payload = await ImagePayload.create(
         path=filepath,
-        image_id="img_123" #UPDATE THIS LATER ------
+        image_id=img_id
     )
     return image_payload
 
@@ -71,7 +71,7 @@ async def structure_request(query):
     Convert query into an event
     """
     request_payload = await RequestPayload.create(
-        query=query
+        query=query,
     )
     return request_payload
 
