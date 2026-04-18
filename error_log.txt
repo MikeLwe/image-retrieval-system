@@ -314,3 +314,26 @@ Traceback (most recent call last):
     await self._waiter
 RuntimeError: Task <Task pending name='Task-4' coro=<main() running at C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\image_service.py:47> cb=[_run_until_complete_cb() at C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\base_events.py:181]> got Future <Future pending> attached to a different loop
  different loop
+2026-04-18 02:01:37,356 - root - ERROR - Something went wrong. 'list' object has no attribute 'get'
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\embedding_service.py", line 50, in main
+    img_payload = ImagePayload.from_json(message['data'])
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\msg_structure.py", line 84, in from_json
+    objects = data.get("objects", [])
+              ^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+2026-04-18 02:21:44,947 - root - ERROR - Something went wrong. 'RequestPayload' object has no attribute 'path'
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\image_service.py", line 69, in main
+    print(f"Received: {rq_payload.path}") #REMOVE LATER
+                       ^^^^^^^^^^^^^^^
+AttributeError: 'RequestPayload' object has no attribute 'path'
+2026-04-18 02:22:19,982 - root - ERROR - Something went wrong. 'list' object has no attribute 'objects' and no __dict__ for setting new attributes
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\image_service.py", line 70, in main
+    rq_payload = await analyze_request(rq_payload)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\image_service.py", line 32, in analyze_request
+    request.labels.objects = []
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'objects' and no __dict__ for setting new attributes

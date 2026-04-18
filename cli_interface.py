@@ -9,7 +9,7 @@ import logging
 import redis.asyncio as redis
 import asyncio
 import time
-from msg_structure import ImagePayload, ImageData, RequestPayload
+from msg_structure import ImagePayload, ImageData, DetectedObject, RequestPayload, ConfirmImageStored, RequestedInfoPayload
 
 #Run this command: docker run -d -p 6379:6379 --name images redis
 
@@ -32,10 +32,12 @@ async def request_handler(args):
     r = args.redis
     request = args.request
 
+    request_payload = await structure_request(request)
+
     try:
-        await r.publish('request', request.to_json())
+        await r.publish('request', request_payload.to_json())
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"CLI Request Handler Error: {e}")
 
 async def upload_handler(args):
     """
@@ -54,7 +56,7 @@ async def upload_handler(args):
     try:
         await r.publish('upload', upload_payload.to_json())
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"CLI Upload Handler Error: {e}")
 
 async def structure_image(filepath, img_id):
     """
@@ -71,7 +73,7 @@ async def structure_request(query):
     Convert query into an event
     """
     request_payload = await RequestPayload.create(
-        init_query=query,
+        init_query=query
     )
     return request_payload
 
@@ -112,6 +114,41 @@ async def run_services(services):
 
     return procs
 
+async def start_pubsub(client):
+    """
+    Function to allow CLI Interface to listen to incoming messages
+    """
+    in_upload_ch = 'stored_confirm'
+    in_request_ch = 'request_completed'
+    pubsub = client.pubsub()
+    await pubsub.subscribe(in_upload_ch, in_request_ch)
+    async for message in pubsub.listen():
+        if message["type"] == "message":
+            if message["channel"] == in_upload_ch:
+                try:
+                    img_payload = ConfirmImageStored.from_json(message['data'])
+                    print(f"Received: {img_payload.path}") #REMOVE LATER
+                    
+                    if img_payload.database_stored and img_payload.vector_stored:
+                        print(f"Image Successfully Uploaded!")
+                    else:
+                        print(f"Something did not save properly...")
+
+                except Exception as e:
+                    logging.error(f"Something went wrong. {e}", exc_info=True)
+                    print("End Upload CLI Error")
+
+            elif message["channel"] == in_request_ch:
+                try:
+                    rq_payload = RequestedInfoPayload.from_json(message['data'])
+                    print(f"Received: {len(rq_payload.similar_labels)} labels") #REMOVE LATER
+                    
+                    print(f"Request Successfully Achieved!")
+
+                except Exception as e:
+                    logging.error(f"Something went wrong. {e}", exc_info=True)
+                    print("End Request CLI Error")
+
 async def stop_services(processes):
     """
     End all running services
@@ -148,6 +185,7 @@ async def main(is_test = False):
 
     #run all the services
     processes = await run_services(services)
+    pubsub_task = asyncio.create_task(start_pubsub(r))
     print("Starting all services...\n")
     time.sleep(1.5)
 
@@ -177,6 +215,7 @@ async def main(is_test = False):
 
             if args_list[0] not in valid_commands:
                 print(f"Unknown command: {args_list[0]}")
+                print("Type 'quit' to stop program.")
                 print("Available commands:\n request <description>\n upload <filepath>\n")
                 continue
 
@@ -207,6 +246,11 @@ async def main(is_test = False):
     
     finally:
         await stop_services(processes)
+        pubsub_task.cancel()
+        try:
+            await pubsub_task
+        except asyncio.CancelledError:
+            pass
 
 if __name__ == '__main__':
     asyncio.run(main())

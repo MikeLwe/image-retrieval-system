@@ -34,9 +34,13 @@ async def main():
     #create a redis client running on an image I am running
     client = redis.Redis(host='localhost', port=portnum, decode_responses=True)
 
+    #declare channels
+    in_ch = 'upload'
+    out_ch = 'image_uploaded'
+
     #create pubsub instance 
     pubsub = client.pubsub()
-    await pubsub.subscribe('upload')
+    await pubsub.subscribe(in_ch)
 
     try:
         # message is a dict like {'type': 'message', 'pattern': None, 'channel': 'my_channel', 'data': '...'}
@@ -48,7 +52,7 @@ async def main():
                     print(f"Received: {payload.path}") #REMOVE LATER
                     encoded_img = await encode_image(payload.path)
                     payload.data = await ImageData.create(encoded_img)
-                    await client.publish('image_uploaded', payload.to_json())
+                    await client.publish(out_ch, payload.to_json())
                     print(f"Image Uploaded")
 
                     #In case the user has the wrong file input
@@ -61,12 +65,9 @@ async def main():
         print("ruh roh fatal error")
 
     finally:
-        await pubsub.unsubscribe() #remove later
+        await pubsub.unsubscribe() #remove later?
         await pubsub.aclose()
         await client.aclose()
-
-    
-    print("Upload Service: Call Received!")
 
 
 if __name__ == '__main__':

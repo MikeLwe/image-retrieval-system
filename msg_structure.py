@@ -31,10 +31,13 @@ class ImageData:
     objects: list[DetectedObject] #no objects detected -> size = 0
 
     @classmethod
-    async def create(cls, init_encoded_data, init_objects = [], init_encoding = "base64"):
+    async def create(cls, init_encoded_data, init_objects = None, init_encoding = "base64"):
         """
         Create an Image Data Object async
         """
+
+        if init_objects is None:
+            init_objects = []
 
         return cls(
             encoded_data = init_encoded_data,
@@ -101,7 +104,6 @@ class ImagePayload:
         )
 
 @dataclass
-#temporary code... might change later as development happens
 class RequestPayload:
     """
     Payload of a request
@@ -130,15 +132,7 @@ class RequestPayload:
 
     def to_json(self):
         return json.dumps(asdict(self), default=str)
-    
-    # @staticmethod
-    # #BUG MAY EXIST IF MISSING FIELDS, WRONG TYPES, PARTIAL PAYLOAD
-    # def from_json(json_str: str):
-    #     d = json.loads(json_str)
-    #     d = json.loads(json_str)
-    #     return RequestPayload(**d)
 
-    #SOLUTION:
     @staticmethod
     def from_json(json_str: str):
         d = json.loads(json_str)
@@ -148,4 +142,121 @@ class RequestPayload:
             labels=list(d.get("labels", [])),
             event_id=d["event_id"],
             timestamp=d["timestamp"]
+        )
+    
+@dataclass
+class ConfirmImageStored:
+    """
+    Payload of image stored confirmation
+    """
+    type: str #image file type
+    event_id: str #id for this event
+    image_id: str #id associated with this image
+    timestamp: str #time event created (MAY REMOVE)
+    path: str #file path where image was uploaded from
+    vector_stored: bool #confirm vector was stored
+    database_stored: bool #confirm database was stored
+    data: ImageData | None = None #objects from the image (TEMPORARY?)
+
+    @classmethod
+    async def create(cls, 
+                     init_type, 
+                     init_event_id,
+                     init_image_id,
+                     init_timestamp,
+                     init_path,
+                     init_data,
+                     init_vector = False,
+                     init_database = False,
+                     ):
+        """
+        Create an Request Payload Object async
+        """
+
+        return cls(
+            type = init_type,
+            event_id = init_event_id,
+            image_id = init_image_id,
+            timestamp = init_timestamp,
+            path = init_path,
+            data = init_data,
+            vector_stored = init_vector,
+            database_stored = init_database
+        )
+
+    def to_json(self):
+        return json.dumps(asdict(self), default=str)
+
+    @staticmethod
+    def from_json(json_str: str):
+        d = json.loads(json_str)
+
+        data = d.get("data")
+        if data is not None:
+            objects = data.get("objects", [])
+
+            data = ImageData(
+                encoded_data=data["encoded_data"],
+                encoding=data["encoding"],
+                objects=[
+                    DetectedObject(**obj) for obj in objects
+                ]
+            )
+
+        return ConfirmImageStored(
+            type=d["type"],
+            event_id=d["event_id"],
+            image_id=d["image_id"],
+            timestamp=d["timestamp"],
+            path=d["path"],
+            data=data,
+            vector_stored=d["vector_stored"],
+            database_stored=d["database_stored"]
+        )
+
+@dataclass
+class RequestedInfoPayload:
+    """
+    Payload of request information
+    """
+
+    event_id: str
+    timestamp: str
+    similar_labels: list[str] #similar labels around request
+    images: list[ImageData] #send back images with similar labels
+
+    @classmethod
+    async def create(cls,
+                     init_event_id,
+                     init_timestamp,
+                     init_similar_labels = None,
+                     init_images=None):
+        """
+        Create an Requested Information Payload Object async
+        """
+
+        if init_similar_labels is None:
+            init_similar_labels = []
+        if init_images is None:
+            init_images = []
+
+        return cls(
+            event_id=init_event_id,
+            timestamp=init_timestamp,
+            similar_labels = init_similar_labels,
+            images = init_images
+        )
+
+    def to_json(self):
+        return json.dumps(asdict(self), default=str)
+
+    @staticmethod
+    def from_json(json_str: str):
+        d = json.loads(json_str)
+
+        return RequestedInfoPayload(
+            event_id=d["event_id"],
+            timestamp=d["timestamp"],
+            similar_labels=list(d.get("similar_labels", [])),
+            images=list(d.get("images", []))
         )
