@@ -20,12 +20,16 @@ async def infer_image(image: ImagePayload):
     """
     Identifies the contents of the image and initializes the objects field
     """
+    #gets the DetectedObjects and stores them in the list
+    image.data = []
     return image
 
 async def analyze_request(request: RequestPayload):
     """
-    Converts request into a dictionary to be read
+    Converts query into a dictionary to be read by the embedding service
     """
+    #gets the key words as str and stores them in the list
+    request.labels = []
     return request
 
 async def main():
@@ -43,30 +47,28 @@ async def main():
             if message['type'] == 'message':
                 if message['channel'] == 'image_uploaded':
                     try:
-                        print(f"Received: {message['data']}") #REMOVE LATER
-
-                        encoded_img = await encode_image(message['data'])
-                        image = await structure_image(message['data'], encoded_img)
-                        await client.publish('image_processed', image)
+                        img_payload = message['data']
+                        print(f"Received: {img_payload.path}") #REMOVE LATER
+                        img_payload = await infer_image(img_payload)
+                        await client.publish('image_processed', img_payload)
                         print(f"Image Processed")
 
                         #In case the user has the wrong file input
-                    except FileNotFoundError as e:
-                        logging.error(f"File not found. {e}", exc_info=True)
-                        print("File does not exist. Please check your input.")
+                    except Exception as e:
+                        logging.error(f"Something went wrong. {e}", exc_info=True)
+                        print("Upload Image Service Error")
                 elif message['channel'] == 'request':
                     try:
-                        print(f"Received: {message['data']}") #REMOVE LATER
-
-                        image = await structure_request(message['data'])
-                        #include more information in this payload------------------------
-                        await client.publish('text_processed', image)
-                        print(f"Image Processed")
+                        rq_payload = message['data']
+                        print(f"Received: {rq_payload.path}") #REMOVE LATER
+                        rq_payload = analyze_request(rq_payload)
+                        await client.publish('text_processed', rq_payload)
+                        print(f"Request Processed")
 
                         #In case the user has the wrong file input
-                    except FileNotFoundError as e:
-                        logging.error(f"File not found. {e}", exc_info=True)
-                        print("File does not exist. Please check your input.")
+                    except Exception as e:
+                        logging.error(f"Something went wrong. {e}", exc_info=True)
+                        print("Request Image Service Error")
                     
 
     except Exception as e:

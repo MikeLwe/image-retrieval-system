@@ -88,18 +88,19 @@ class RequestPayload:
     """
 
     query: str
-    
+    labels: list[str]
     event_id: str
     timestamp: str
 
     @classmethod
-    async def create(cls, query: str):
+    async def create(cls, init_query, init_labels = []):
         """
         Create an Request Payload Object async
         """
 
         return cls(
-            query = query,
+            query = init_query,
+            labels = init_labels, #embedding will look for words, this is where that is stored
             event_id=str(uuid.uuid4()),
             timestamp=datetime.now(timezone.utc).isoformat()
         )
