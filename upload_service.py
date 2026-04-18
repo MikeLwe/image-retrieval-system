@@ -27,12 +27,6 @@ async def encode_image(image_path):
         encoded_string = base64.b64encode(await image_file.read())
         return encoded_string.decode('utf-8')
 
-async def structure_image(filepath, encoding):
-    """
-    Compact all image information into one object
-    """
-    return filepath
-
 async def main():
     """
     Starts the Upload Service
@@ -50,11 +44,11 @@ async def main():
             # 'message' is a dict. type 'message' contains actual data.
             if message['type'] == 'message':
                 try:
-                    payload = message['data']
+                    payload = ImagePayload.from_json(message['data'])
                     print(f"Received: {payload.path}") #REMOVE LATER
                     encoded_img = await encode_image(payload.path)
                     payload.data = await ImageData.create(encoded_img)
-                    await client.publish('image_uploaded', payload)
+                    await client.publish('image_uploaded', payload.to_json())
                     print(f"Image Uploaded")
 
                     #In case the user has the wrong file input

@@ -47,10 +47,10 @@ async def main():
             if message['type'] == 'message':
                 if message['channel'] == 'image_uploaded':
                     try:
-                        img_payload = message['data']
+                        img_payload = ImagePayload.from_json(message['data'])
                         print(f"Received: {img_payload.path}") #REMOVE LATER
                         img_payload = await infer_image(img_payload)
-                        await client.publish('image_processed', img_payload)
+                        await client.publish('image_processed', img_payload.to_json())
                         print(f"Image Processed")
 
                         #In case the user has the wrong file input
@@ -59,10 +59,10 @@ async def main():
                         print("Upload Image Service Error")
                 elif message['channel'] == 'request':
                     try:
-                        rq_payload = message['data']
+                        rq_payload = RequestPayload.from_json(message['data'])
                         print(f"Received: {rq_payload.path}") #REMOVE LATER
                         rq_payload = analyze_request(rq_payload)
-                        await client.publish('text_processed', rq_payload)
+                        await client.publish('text_processed', rq_payload.to_json())
                         print(f"Request Processed")
 
                         #In case the user has the wrong file input
@@ -84,3 +84,4 @@ async def main():
     print("Upload Service: Call Received!")
 if __name__ == '__main__':
     print("Image Service Running...")
+    asyncio.run(main())

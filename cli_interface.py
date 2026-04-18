@@ -33,7 +33,7 @@ async def request_handler(args):
     request = args.request
 
     try:
-        await r.publish('request', request)
+        await r.publish('request', request.to_json())
     except Exception as e:
         print(f"Error: {e}")
 
@@ -52,7 +52,7 @@ async def upload_handler(args):
     upload_payload = await structure_image(path, img_id)
 
     try:
-        await r.publish('upload', upload_payload)
+        await r.publish('upload', upload_payload.to_json())
     except Exception as e:
         print(f"Error: {e}")
 
@@ -61,8 +61,8 @@ async def structure_image(filepath, img_id):
     Compact image information into an event
     """
     image_payload = await ImagePayload.create(
-        path=filepath,
-        image_id=img_id
+        init_path=filepath,
+        init_image_id=img_id
     )
     return image_payload
 
@@ -71,7 +71,7 @@ async def structure_request(query):
     Convert query into an event
     """
     request_payload = await RequestPayload.create(
-        query=query,
+        init_query=query,
     )
     return request_payload
 

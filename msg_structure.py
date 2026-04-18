@@ -31,7 +31,7 @@ class ImageData:
     objects: list[DetectedObject] #no objects detected -> size = 0
 
     @classmethod
-    async def create(cls, init_encoded_data, init_objects, init_encoding = "base64"):
+    async def create(cls, init_encoded_data, init_objects = [], init_encoding = "base64"):
         """
         Create an Image Data Object async
         """
@@ -69,16 +69,36 @@ class ImagePayload:
             type=mime or "application/octet-stream",
             event_id=str(uuid.uuid4()),
             timestamp=datetime.now(timezone.utc).isoformat(),
+            data = None
         )
 
     def to_json(self):
-        return json.dumps(asdict(self))
+        return json.dumps(asdict(self), default=str)
     
     @staticmethod
-    def from_json(json_str: str):
+    def from_json(json_str: str) -> "ImagePayload":
         d = json.loads(json_str)
-        d["data"] = ImageData(**d["data"])
-        return ImagePayload(**d)
+
+        data = d.get("data")
+        if data is not None:
+            objects = data.get("objects", [])
+
+            data = ImageData(
+                encoded_data=data["encoded_data"],
+                encoding=data["encoding"],
+                objects=[
+                    DetectedObject(**obj) for obj in objects
+                ]
+            )
+
+        return ImagePayload(
+            type=d["type"],
+            event_id=d["event_id"],
+            image_id=d["image_id"],
+            timestamp=d["timestamp"],
+            path=d["path"],
+            data=data
+        )
 
 @dataclass
 #temporary code... might change later as development happens
@@ -93,10 +113,13 @@ class RequestPayload:
     timestamp: str
 
     @classmethod
-    async def create(cls, init_query, init_labels = []):
+    async def create(cls, init_query, init_labels = None):
         """
         Create an Request Payload Object async
         """
+
+        if init_labels is None:
+            init_labels = []
 
         return cls(
             query = init_query,
@@ -106,10 +129,23 @@ class RequestPayload:
         )
 
     def to_json(self):
-        return json.dumps(asdict(self))
+        return json.dumps(asdict(self), default=str)
     
+    # @staticmethod
+    # #BUG MAY EXIST IF MISSING FIELDS, WRONG TYPES, PARTIAL PAYLOAD
+    # def from_json(json_str: str):
+    #     d = json.loads(json_str)
+    #     d = json.loads(json_str)
+    #     return RequestPayload(**d)
+
+    #SOLUTION:
     @staticmethod
     def from_json(json_str: str):
         d = json.loads(json_str)
-        d["data"] = ImageData(**d["data"])
-        return ImagePayload(**d)
+
+        return RequestPayload(
+            query=d["query"],
+            labels=list(d.get("labels", [])),
+            event_id=d["event_id"],
+            timestamp=d["timestamp"]
+        )
