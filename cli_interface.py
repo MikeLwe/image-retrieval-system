@@ -21,7 +21,7 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 
-i = 0 #temporary ID solution
+i = 0 #TEMPORARY ID SOLUTION------------------
 
 async def request_handler(args):
     """
@@ -42,12 +42,12 @@ async def upload_handler(args):
     Handles the upload input from the user to run the csv_loader main function
     """
     print("Uploading Image to database...\n")
-
+    global i #TEMPORARY ID SOLUTION------------------
     r = args.redis
     path = args.filepath
     img_id = f"img_{i}"
 
-    i = i + 1 #Temporary ID Solution
+    i = i + 1 #TEMPORARY ID SOLUTION------------------
 
     upload_payload = await structure_image(path, img_id)
 

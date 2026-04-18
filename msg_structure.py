@@ -10,13 +10,37 @@ import json
 # from typing import Optional
  
 @dataclass
+class DetectedObject:
+    """
+    Information about the objects detected in an image
+    """
+    label: str
+    x1: float
+    y1: float
+    x2: float
+    y2: float
+    confidence: float | None = None #in case confidence isn't provided
+
+@dataclass
 class ImageData:
     """
     Information about the image
     """
     encoded_data: bytes
-    objects: dict #don't forget the case when the image has nothing of note
-    encoding: str | None = None
+    encoding: str
+    objects: list[DetectedObject] #no objects detected -> size = 0
+
+    @classmethod
+    async def create(cls, init_encoded_data, init_objects, init_encoding = "base64"):
+        """
+        Create an Image Data Object async
+        """
+
+        return cls(
+            encoded_data = init_encoded_data,
+            objects = init_objects,
+            encoding = init_encoding
+        )
 
 @dataclass
 class ImagePayload:
@@ -30,17 +54,18 @@ class ImagePayload:
     path: str #file path where image was uploaded from
     data: ImageData | None = None
 
+    #AI assisted with implementing this function
     @classmethod
-    async def create(cls, path: str, image_id: str):
+    async def create(cls, init_path: str, init_image_id: str):
         """
         Create an Image Payload Object async
         """
 
-        mime, _ = mimetypes.guess_type(path)
+        mime, _ = mimetypes.guess_type(init_path)
 
         return cls(
-            path=path,
-            image_id=image_id,
+            path=init_path,
+            image_id=init_image_id,
             type=mime or "application/octet-stream",
             event_id=str(uuid.uuid4()),
             timestamp=datetime.now(timezone.utc).isoformat(),
@@ -63,6 +88,7 @@ class RequestPayload:
     """
 
     query: str
+    
     event_id: str
     timestamp: str
 

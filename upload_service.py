@@ -50,17 +50,16 @@ async def main():
             # 'message' is a dict. type 'message' contains actual data.
             if message['type'] == 'message':
                 try:
-                    print(f"Received: {message['data']}") #REMOVE LATER
-
-                    encoded_img = await encode_image(message['data'])
-                    image = await structure_image(message['data'], encoded_img)
-                    #include more information in this payload------------------------
-                    await client.publish('image_uploaded', image)
+                    payload = message['data']
+                    print(f"Received: {payload.path}") #REMOVE LATER
+                    encoded_img = await encode_image(payload.path)
+                    payload.data = await ImageData.create(encoded_img)
+                    await client.publish('image_uploaded', payload)
                     print(f"Image Uploaded")
 
                     #In case the user has the wrong file input
                 except FileNotFoundError as e:
-                    logging.error(f"File not found. {e}", exc_info=True)
+                    logging.error(f"Uploading Error: File not found. {e}", exc_info=True)
                     print("File does not exist. Please check your input.")
 
     except Exception as e:
