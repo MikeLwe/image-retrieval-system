@@ -5,7 +5,7 @@ import asyncio
 import time
 from contextlib import redirect_stdout
 import io
-from cli_interface import create_parser, start_pubsub, run_services, structure_image, structure_request, stop_services
+from cli_interface import create_parser, run_services, structure_image, structure_request, stop_services
 from upload_service import encode_image
 from image_service import infer_image, analyze_request
 from embedding_service import embed_image, embed_request
@@ -26,6 +26,31 @@ portnum = 6379
 #     assert isinstance(result, int)
 
 #     await r.aclose()
+
+async def start_pubsub(client):
+    """
+    Function to allow CLI Interface to listen to incoming messages
+    """
+    in_upload_ch = 'stored_confirm'
+    in_request_ch = 'request_completed'
+    pubsub = client.pubsub()
+    await pubsub.subscribe(in_upload_ch, in_request_ch)
+    async for message in pubsub.listen():
+        if message["type"] == "message":
+            if message["channel"] == in_upload_ch:
+                    img_payload = ConfirmImageStored.from_json(message['data'])
+                    print(f"Received: {img_payload.path}") #REMOVE LATER
+                    
+                    if img_payload.database_stored and img_payload.vector_stored:
+                        print(f"Image Successfully Uploaded!")
+                    else:
+                        print(f"Something did not save properly...")
+
+            elif message["channel"] == in_request_ch:
+                    rq_payload = RequestedInfoPayload.from_json(message['data'])
+                    print(f"Received: {len(rq_payload.similar_labels)} labels") #REMOVE LATER
+                    
+                    print(f"Request Successfully Achieved!")
 
 @pytest.mark.asyncio
 async def test_test():
