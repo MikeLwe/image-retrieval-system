@@ -50,7 +50,7 @@ async def test_all_services_async_1():
             stderr=asyncio.subprocess.PIPE,
         )
         processes.append(p)
-    start_pubsub(client)
+    await start_pubsub(client)
     await asyncio.sleep(1)  # give services time to subscribe
 
 
@@ -75,7 +75,7 @@ async def test_all_services_async_1():
     embed_r_payload = await embed_request(image_r_payload)
 
     #vector index
-    vector_u_payload = await store_image_embed(embed_r_payload)
+    vector_u_payload = await store_image_embed(embed_u_payload)
     vector_r_payload = await compare_request(embed_r_payload)
 
     #document db
