@@ -62,7 +62,7 @@ async def test_all_services_async_1():
     cli_r_payload = await structure_request(query)
 
     #upload
-    img_obj = await encode_image(cli_u_payload)
+    img_obj = await encode_image(cli_u_payload.path)
     upload_u_payload = await ImageData.create(img_obj)
 
     #image
