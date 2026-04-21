@@ -16,6 +16,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - test_name: Communication
+            file_name: communication_test.py
           - test_name: CLI Interface
             file_name: cli_interface_test.py
           # - test_name: Upload Service
