@@ -5,17 +5,17 @@ import asyncio
 import time
 from cli_interface import create_parser
 
-# @pytest.mark.asyncio
-# async def test_redis_publish():
-#     """
-#     Default Test to see if Redis works
-#     """
-#     r = redis.Redis(host="localhost", port=6379, decode_responses=True)
+@pytest.mark.asyncio
+async def test_redis_publish():
+    """
+    Default Test to see if Redis works
+    """
+    r = redis.Redis(host="localhost", port=6379, decode_responses=True)
 
-#     result = await r.publish("test_channel", "hello")
-#     assert isinstance(result, int)
+    result = await r.publish("test_channel", "hello")
+    assert isinstance(result, int)
 
-#     await r.aclose()
+    await r.aclose()
 
 @pytest.mark.asyncio
 async def test_cli_1():
