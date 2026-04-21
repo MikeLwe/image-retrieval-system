@@ -130,7 +130,7 @@ async def start_pubsub(client):
                     print(f"Received: {img_payload.path}") #REMOVE LATER
                     
                     if img_payload.database_stored and img_payload.vector_stored:
-                        print(f"Image Successfully Uploaded!")
+                        print(f"Image Successfully Uploaded!\n")
                     else:
                         print(f"Something did not save properly...")
 
@@ -143,7 +143,7 @@ async def start_pubsub(client):
                     rq_payload = RequestedInfoPayload.from_json(message['data'])
                     print(f"Received: {len(rq_payload.similar_labels)} labels") #REMOVE LATER
                     
-                    print(f"Request Successfully Achieved!")
+                    print(f"Request Successfully Achieved!\n")
 
                 except Exception as e:
                     logging.error(f"Something went wrong. {e}", exc_info=True)
