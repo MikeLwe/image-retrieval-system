@@ -28,6 +28,13 @@ portnum = 6379
 #     await r.aclose()
 
 @pytest.mark.asyncio
+async def test_test():
+    """
+    Sanity Check
+    """
+    assert True
+
+@pytest.mark.asyncio
 async def test_all_services_async_1():
     """Test the whether all services can run with payloads in them"""
     #create a redis client
@@ -50,6 +57,7 @@ async def test_all_services_async_1():
             stderr=asyncio.subprocess.PIPE,
         )
         processes.append(p)
+    await asyncio.sleep(1)  # give services time to subscribe
     await start_pubsub(client)
     await asyncio.sleep(1)  # give services time to subscribe
 
