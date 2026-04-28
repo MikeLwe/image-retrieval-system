@@ -21,7 +21,9 @@ async def infer_image(image: ImagePayload):
     Identifies the contents of the image and initializes the objects field
     """
     #gets the DetectedObjects and stores them in the list
-    image.data.object = []
+    if image.path == "images/logo.png":
+        image.data.object = []
+    # image.data.object = []
     return image
 
 async def analyze_request(request: RequestPayload):

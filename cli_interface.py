@@ -109,7 +109,7 @@ async def run_services(services):
     procs = []
 
     for file in services:
-        p = await asyncio.create_subprocess_exec("python", file)
+        p = await asyncio.create_subprocess_exec("python", file, stdout=None, stderr=None)
         procs.append(p)
 
     return procs
@@ -153,13 +153,13 @@ async def stop_services(processes):
     """
     End all running services
     """
+    print("Stopping...")
     for proc in processes:
         try:
             proc.terminate()
         #in case processes are all terminated already
         except ProcessLookupError:
             continue
-        
     #AI code review help:   
     for proc in processes:
         try:

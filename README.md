@@ -81,3 +81,8 @@ Pros:
 Cons: 
 - If other listeners use the databases at the same, this is a problem when requesting or uploading the database
 - Multiple people being able to access the database is a security issue
+
+redis.io
+mongo
+SW - software?
+Mock-data

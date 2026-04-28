@@ -357,3 +357,202 @@ Traceback (most recent call last):
   File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\thread.py", line 59, in run
     result = self.fn(*self.args, **self.kwargs)
 FileNotFoundError: [Errno 2] No such file or directory: 'logo.png'
+2026-04-23 17:52:10,182 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 79, in main
+    print(f"Image Stored in Database")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+FUTURE ERRORS:
+2026-04-23 19:07:26,835 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\vector_index_service.py", line 75, in main
+    print(f"Image Embedding Stored")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:07:26,847 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 79, in main
+    print(f"Image Stored in Database")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:07:26,854 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 79, in main
+    print(f"Image Stored in Database")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:07:26,894 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 70, in main
+    print(f"Received: {img_payload.path}") #REMOVE LATER
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:16:00,218 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\vector_index_service.py", line 84, in main
+    print(f"Received: {rq_payload.query}") #REMOVE LATER
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:16:02,289 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 90, in main
+    print(f"Requested Images Sent")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+--------------2026-04-23 19:16:55,227 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 87, in main
+    print(f"Received: {len(rq_payload.similar_labels)} labels") #REMOVE LATER
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:16:57,252 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\vector_index_service.py", line 84, in main
+    print(f"Received: {rq_payload.query}") #REMOVE LATER
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:16:57,281 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 90, in main
+    print(f"Requested Images Sent")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:17:20,196 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 79, in main
+    print(f"Image Stored in Database")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:17:20,203 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 70, in main
+    print(f"Received: {img_payload.path}") #REMOVE LATER
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:17:20,235 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 70, in main
+    print(f"Received: {img_payload.path}") #REMOVE LATER
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:17:41,315 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 79, in main
+    print(f"Image Stored in Database")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:17:41,332 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 79, in main
+    print(f"Image Stored in Database")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:17:41,390 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 79, in main
+    print(f"Image Stored in Database")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:17:41,518 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 79, in main
+    print(f"Image Stored in Database")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:08,162 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 79, in main
+    print(f"Image Stored in Database")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:08,170 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\vector_index_service.py", line 67, in main
+    print(f"Received: {img_payload.path}") #REMOVE LATER
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:08,228 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\vector_index_service.py", line 75, in main
+    print(f"Image Embedding Stored")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:08,280 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\vector_index_service.py", line 75, in main
+    print(f"Image Embedding Stored")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:08,302 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 79, in main
+    print(f"Image Stored in Database")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:08,396 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 79, in main
+    print(f"Image Stored in Database")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:08,428 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 79, in main
+    print(f"Image Stored in Database")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:08,452 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 79, in main
+    print(f"Image Stored in Database")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:37,289 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 70, in main
+    print(f"Received: {img_payload.path}") #REMOVE LATER
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:37,305 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 70, in main
+    print(f"Received: {img_payload.path}") #REMOVE LATER
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:37,335 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 70, in main
+    print(f"Received: {img_payload.path}") #REMOVE LATER
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:59,768 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\embedding_service.py", line 57, in main
+    print(f"Received: {img_payload.path}") #REMOVE LATER
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:59,815 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\vector_index_service.py", line 75, in main
+    print(f"Image Embedding Stored")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:59,828 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 70, in main
+    print(f"Received: {img_payload.path}") #REMOVE LATER
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:59,833 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 90, in main
+    print(f"Requested Images Sent")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument
+2026-04-23 19:19:59,869 - root - ERROR - Something went wrong. [Errno 22] Invalid argument
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 70, in main
+    print(f"Received: {img_payload.path}") #REMOVE LATER
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 22] Invalid argument

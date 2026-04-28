@@ -27,30 +27,6 @@ portnum = 6379
 
 #     await r.aclose()
 
-async def start_pubsub(client):
-    """
-    Function to allow CLI Interface to listen to incoming messages
-    """
-    in_upload_ch = 'stored_confirm'
-    in_request_ch = 'request_completed'
-    pubsub = client.pubsub()
-    await pubsub.subscribe(in_upload_ch, in_request_ch)
-    async for message in pubsub.listen():
-        if message["type"] == "message":
-            if message["channel"] == in_upload_ch:
-                    img_payload = ConfirmImageStored.from_json(message['data'])
-                    print(f"Received: {img_payload.path}") #REMOVE LATER
-                    
-                    if img_payload.database_stored and img_payload.vector_stored:
-                        print(f"Image Successfully Uploaded!")
-                    else:
-                        print(f"Something did not save properly...")
-
-            elif message["channel"] == in_request_ch:
-                    rq_payload = RequestedInfoPayload.from_json(message['data'])
-                    print(f"Received: {len(rq_payload.similar_labels)} labels") #REMOVE LATER
-                    
-                    print(f"Request Successfully Achieved!")
 
 @pytest.mark.asyncio
 async def test_test():
@@ -66,6 +42,7 @@ async def test_all_services_async_1():
     client = redis.Redis(host='localhost', port=portnum, decode_responses=True)
 
     services = [
+        # "cli_interface.py",
         "upload_service.py",
         "image_service.py",
         "document_db_service.py",
@@ -74,18 +51,9 @@ async def test_all_services_async_1():
     ]
     
     #run all the services
-    processes = []
-    for s in services:
-        p = await asyncio.create_subprocess_exec(
-            "python", s,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
-        )
-        processes.append(p)
-    await asyncio.sleep(1)  # give services time to subscribe
-    await start_pubsub(client)
-    await asyncio.sleep(1)  # give services time to subscribe
+    processes = await run_services(services)
 
+    await asyncio.sleep(3)  # give services time to subscribe
 
     #initializing all variables
     #cli
@@ -135,56 +103,59 @@ async def test_all_services_async_1():
 
         #calling from vector_index_service
         client.publish('image_stored', vector_u_payload.to_json()),
-        client.publish('info_gathered', vector_r_payload.to_json()),
+        client.publish('info_gathered', vector_r_payload.to_json())
 
-        #calling from document_db_service
-        client.publish('stored_confirm', doc_u_payload.to_json()),
-        client.publish('request_completed', doc_r_payload.to_json()),
+        # #calling from document_db_service
+        # client.publish('stored_confirm', doc_u_payload.to_json()),
+        # client.publish('request_completed', doc_r_payload.to_json())
     ]
 
     await asyncio.gather(*publish_tasks)
+    # await asyncio.sleep(1)  # give services time to subscribe
 
-    multiple_outputs = await asyncio.gather(*(p.communicate() for p in processes))
-    output = "".join(out[0].decode() for out in multiple_outputs)
+    pubsub = client.pubsub()
+    await pubsub.subscribe('stored_confirm', 'request_completed')
 
-    await asyncio.sleep(2)
+    count_message = 0
+    # start = asyncio.get_event_loop().time()
+    max_messages = 9
+    timeout = 5
+    # timeout_occurred = 0
 
+    while True:
+        try:
+            message = await asyncio.wait_for(pubsub.get_message(ignore_subscribe_messages=True), timeout=timeout)
+        except asyncio.TimeoutError:
+            print("Timeout reached")
+            break
+
+        if message is None:
+            continue
+        if message["type"] != "message":
+            continue
+        
+        if message["type"] == "message":
+            if message["channel"] == 'stored_confirm':
+                img_payload = ConfirmImageStored.from_json(message['data'])
+                print(f"Received: {img_payload.path}") #REMOVE LATER
+                
+                if img_payload.database_stored and img_payload.vector_stored:
+                    print(f"Image Successfully Uploaded!")
+                    count_message += 1
+                else:
+                    print(f"Something did not save properly...")
+
+            elif message["channel"] == 'request_completed':
+                rq_payload = RequestedInfoPayload.from_json(message['data'])
+                print(f"Received: {len(rq_payload.similar_labels)} labels") #REMOVE LATER
+                
+                print(f"Request Successfully Achieved!")
+                count_message += 1
+
+        print(f"Received {count_message} messages\n")
+
+    await pubsub.unsubscribe()
+    await pubsub.aclose()
     await stop_services(processes)
 
-    assert output.count("Image Successfully Uploaded!") == 5
-    assert output.count("Request Successfully Achieved!") == 4
-
-# @pytest.mark.asyncio
-# #AI support with this
-# async def test_async_1():
-#     """Test the asynchronous parser of CLI"""
-#     mock_redis = AsyncMock()
-
-#     # Add artificial delay to simulate real async work
-#     async def fake_publish(channel, msg):
-#         await asyncio.sleep(0.5)
-
-#     mock_redis.publish.side_effect = fake_publish
-#     parser = create_parser(mock_redis)
-#     commands = [
-#         "upload images/logo.png",
-#         "upload images/mascot.png",
-#         "upload images/seal.png",
-#     ]
-
-#     tasks = set()
-
-#     start = time.perf_counter()
-
-#     for cmd in commands:
-#         args = parser.parse_args(cmd.split())
-#         task = asyncio.create_task(args.func(args))
-#         tasks.add(task)
-
-#     await asyncio.gather(*tasks)
-
-#     duration = time.perf_counter() - start
-
-#     # If sequential: ~1.5s (running 3 times)
-#     # If concurrent: < 1s (running 3 in aasync)
-#     assert duration < 1.0
+    assert count_message == max_messages
