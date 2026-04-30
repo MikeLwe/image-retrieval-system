@@ -5,4 +5,6 @@ aiofiles
 asyncio
 dataclasses-json
 pytest-asyncio
+motor
+# pymongo
 # prompt_toolkit

@@ -22,8 +22,16 @@ async def infer_image(image: ImagePayload):
     """
     #gets the DetectedObjects and stores them in the list
     if image.path == "images/logo.png":
+        data = [DetectedObject.create("logo",0.0,0.0,263.0,148.0)]
+        image.data.object = [data]
+    elif image.path == "images/mascot.png":
+        data = [DetectedObject.create("dog",0.0,0.0,184.0,274.0)]
+        image.data.object = [data]
+    elif image.path == "images/seal.png":
+        data = [DetectedObject.create("seal",0.0,0.0,255.0,255.0)]
+        image.data.object = [data]
+    else:
         image.data.object = []
-    # image.data.object = []
     return image
 
 async def analyze_request(request: RequestPayload):
@@ -31,7 +39,14 @@ async def analyze_request(request: RequestPayload):
     Converts query into a dictionary to be read by the embedding service
     """
     #gets the key words as str and stores them in the list
-    request.labels = []
+    if "logo" in request.query:
+        request.labels = ["logo"]
+    elif "dog" in request.query:
+        request.labels = ["dog"]
+    elif "seal" in request.query:
+        request.labels = ["seal"]
+    else:
+        request.labels = []
     return request
 
 async def main():

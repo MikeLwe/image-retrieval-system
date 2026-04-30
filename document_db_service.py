@@ -1,6 +1,7 @@
 import redis.asyncio as redis
 import asyncio
 import logging
+from motor.motor_asyncio import AsyncIOMotorClient
 from msg_structure import ImagePayload, ImageData, DetectedObject, RequestPayload, ConfirmImageStored, RequestedInfoPayload
 
 portnum = 6379
@@ -13,10 +14,17 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 
-async def store_image(image: ImagePayload):
+async def insert_one(collection, data):
+    data = data.to_json()
+    result = await collection.insert_many([data])
+    print(result.inserted_ids)
+    return True #CHECK HOW TO SEE IF THIS WORKED
+
+async def store_image(image: ImagePayload, collection):
     """
     Embeds Image file objects
     """
+    stored = asyncio.run(insert_one(collection, image))
     #if successful storage, create confirm object
     confirm_image = await ConfirmImageStored.create(
         image.type,
@@ -26,8 +34,19 @@ async def store_image(image: ImagePayload):
         image.path,
         image.data, #MAY REMOVE
         image.vector_stored,
-        True
+        False
     )
+    if stored:
+        confirm_image = await ConfirmImageStored.create(
+            image.type,
+            image.event_id,
+            image.image_id,
+            image.timestamp,
+            image.path,
+            image.data, #MAY REMOVE
+            image.vector_stored,
+            True
+        )
     return confirm_image
 
 async def gather_requested_images(request: RequestPayload):
@@ -48,8 +67,12 @@ async def main():
     #create a redis client running on an image I am running
     client = redis.Redis(host='localhost', port=portnum, decode_responses=True)
 
+    #create instance of MongoDB
+    db_client = AsyncIOMotorClient("mongodb://localhost:27017")
+    db = db_client["document_db"]
+    collection = db["image_objects"]
+
     #declare channels
-    # in_upload_ch_1 = 'image_processed'
     in_upload_ch = 'image_stored'
     in_request_ch = 'info_gathered'
     out_upload_ch = 'stored_confirm'
@@ -68,7 +91,7 @@ async def main():
                     try:
                         img_payload = ConfirmImageStored.from_json(message['data'])
                         print(f"Received: {img_payload.path}") #REMOVE LATER
-                        img_payload = await store_image(img_payload) #UPDATE THIS LATER
+                        img_payload = await store_image(img_payload, collection) #UPDATE THIS LATER
                         
                         if not img_payload.database_stored:
                             print("database not stored?")

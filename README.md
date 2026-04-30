@@ -86,3 +86,5 @@ redis.io
 mongo
 SW - software?
 Mock-data
+
+mongosh

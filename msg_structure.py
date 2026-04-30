@@ -21,6 +21,20 @@ class DetectedObject:
     y2: float
     confidence: float | None = None #in case confidence isn't provided
 
+    @classmethod
+    async def create(cls, init_label, init_x1, init_y1, init_x2, init_y2):
+        """
+        Create an Detected Data Object async
+        """
+
+        return cls(
+            label = init_label,
+            x1 = init_x1,
+            y1 = init_y1,
+            x2 = init_x2,
+            y2 = init_y2
+        )
+
 @dataclass
 class ImageData:
     """
