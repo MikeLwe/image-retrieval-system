@@ -16,6 +16,7 @@ logging.basicConfig(
 
 async def insert_one(collection, data):
     data = data.to_json()
+    print(data)
     result = await collection.insert_many([data])
     print(result.inserted_ids)
     return True #CHECK HOW TO SEE IF THIS WORKED
@@ -24,7 +25,7 @@ async def store_image(image: ImagePayload, collection):
     """
     Embeds Image file objects
     """
-    stored = asyncio.run(insert_one(collection, image))
+    stored = await insert_one(collection, image)
     #if successful storage, create confirm object
     confirm_image = await ConfirmImageStored.create(
         image.type,

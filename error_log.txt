@@ -556,3 +556,390 @@ Traceback (most recent call last):
     print(f"Received: {img_payload.path}") #REMOVE LATER
     ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 OSError: [Errno 22] Invalid argument
+2026-04-30 17:30:46,554 - root - ERROR - Uploading Error: File not found. [Errno 2] No such file or directory: 'images/logos.png'
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 53, in main
+    encoded_img = await encode_image(payload.path)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 26, in encode_image
+    async with aiofiles.open(image_path, "rb") as image_file:
+               ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 73, in __aenter__
+    return await self
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\base.py", line 69, in __await__
+    self._obj = yield from self._coro.__await__()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\aiofiles\threadpool\__init__.py", line 93, in _open
+    f = await loop.run_in_executor(executor, cb)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+FileNotFoundError: [Errno 2] No such file or directory: 'images/logos.png'
+2026-04-30 17:31:51,001 - root - ERROR - Something went wrong. asyncio.run() cannot be called from a running event loop
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 94, in main
+    img_payload = await store_image(img_payload, collection) #UPDATE THIS LATER
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 27, in store_image
+    stored = asyncio.run(insert_one(collection, image))
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\asyncio\runners.py", line 191, in run
+    raise RuntimeError(
+        "asyncio.run() cannot be called from a running event loop")
+RuntimeError: asyncio.run() cannot be called from a running event loop
+2026-04-30 17:33:26,875 - root - ERROR - Something went wrong. document must be an instance of dict, bson.son.SON, bson.raw_bson.RawBSONDocument, or a type that inherits from collections.MutableMapping
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 94, in main
+    img_payload = await store_image(img_payload, collection) #UPDATE THIS LATER
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 27, in store_image
+    stored = await insert_one(collection, image)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 19, in insert_one
+    result = await collection.insert_many([data])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pymongo\synchronous\collection.py", line 973, in insert_many
+    blk.ops = list(gen())
+              ~~~~^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pymongo\synchronous\collection.py", line 964, in gen
+    common.validate_is_document_type("document", document)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pymongo\common.py", line 549, in validate_is_document_type
+    raise TypeError(
+    ...<4 lines>...
+    )
+TypeError: document must be an instance of dict, bson.son.SON, bson.raw_bson.RawBSONDocument, or a type that inherits from collections.MutableMapping
+2026-04-30 17:34:35,944 - root - ERROR - Something went wrong. document must be an instance of dict, bson.son.SON, bson.raw_bson.RawBSONDocument, or a type that inherits from collections.MutableMapping
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 95, in main
+    img_payload = await store_image(img_payload, collection) #UPDATE THIS LATER
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 28, in store_image
+    stored = await insert_one(collection, image)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 20, in insert_one
+    result = await collection.insert_many([data])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.13_3.13.3568.0_x64__qbz5n2kfra8p0\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pymongo\_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pymongo\synchronous\collection.py", line 973, in insert_many
+    blk.ops = list(gen())
+              ~~~~^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pymongo\synchronous\collection.py", line 964, in gen
+    common.validate_is_document_type("document", document)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pymongo\common.py", line 549, in validate_is_document_type
+    raise TypeError(
+    ...<4 lines>...
+    )
+TypeError: document must be an instance of dict, bson.son.SON, bson.raw_bson.RawBSONDocument, or a type that inherits from collections.MutableMapping
+2026-05-02 01:38:40,367 - root - ERROR - Something wrong happened. Error while reading from localhost:6379 : (22, 'The specified network name is no longer available', None, 64, None)
+Traceback (most recent call last):
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 69, in call_with_retry
+    return await do()
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 734, in read_response
+    response = await self._parser.read_response(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        disable_decoding=disable_decoding
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\resp2.py", line 82, in read_response
+    response = await self._read_response(disable_decoding=disable_decoding)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\resp2.py", line 90, in _read_response
+    raw = await self._readline()
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\base.py", line 561, in _readline
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\upload_service.py", line 47, in main
+    async for message in pubsub.listen():
+    ...<13 lines>...
+                print("File does not exist. Please check your input.")
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1306, in listen
+    response = await self.handle_message(await self.parse_response(block=True))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1193, in parse_response
+    response = await self._execute(
+               ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1150, in _execute
+    response = await conn.retry.call_with_retry(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 76, in call_with_retry
+    await fail(error, failures)
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1124, in _reconnect
+    await conn.connect()
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 340, in connect
+    await self.retry.call_with_retry(
+    ...<7 lines>...
+    )
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 81, in call_with_retry
+    raise error
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 69, in call_with_retry
+    return await do()
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 404, in connect_check_health
+    await self.on_connect_check_health(check_health=check_health)
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 561, in on_connect_check_health
+    await self.read_response()
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 748, in read_response
+    raise ConnectionError(f"Error while reading from {host_error} : {e.args}")
+redis.exceptions.ConnectionError: Error while reading from localhost:6379 : (22, 'The specified network name is no longer available', None, 64, None)
+2026-05-02 01:38:48,166 - root - ERROR - Something wrong happened. Error 22 connecting to localhost:6379. The remote computer refused the network connection.
+Traceback (most recent call last):
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 69, in call_with_retry
+    return await do()
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 734, in read_response
+    response = await self._parser.read_response(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        disable_decoding=disable_decoding
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\resp2.py", line 82, in read_response
+    response = await self._read_response(disable_decoding=disable_decoding)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\resp2.py", line 90, in _read_response
+    raw = await self._readline()
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\base.py", line 561, in _readline
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\image_service.py", line 68, in main
+    async for message in pubsub.listen():
+    ...<23 lines>...
+                    print("Request Image Service Error")
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1306, in listen
+    response = await self.handle_message(await self.parse_response(block=True))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1193, in parse_response
+    response = await self._execute(
+               ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1150, in _execute
+    response = await conn.retry.call_with_retry(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 76, in call_with_retry
+    await fail(error, failures)
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1124, in _reconnect
+    await conn.connect()
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 340, in connect
+    await self.retry.call_with_retry(
+    ...<7 lines>...
+    )
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 81, in call_with_retry
+    raise error
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 69, in call_with_retry
+    return await do()
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 397, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 22 connecting to localhost:6379. The remote computer refused the network connection.
+2026-05-02 01:38:48,402 - root - ERROR - Something wrong happened. Error 22 connecting to localhost:6379. The remote computer refused the network connection.
+Traceback (most recent call last):
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 69, in call_with_retry
+    return await do()
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 734, in read_response
+    response = await self._parser.read_response(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        disable_decoding=disable_decoding
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\resp2.py", line 82, in read_response
+    response = await self._read_response(disable_decoding=disable_decoding)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\resp2.py", line 90, in _read_response
+    raw = await self._readline()
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\base.py", line 561, in _readline
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\vector_index_service.py", line 61, in main
+    async for message in pubsub.listen():
+    ...<29 lines>...
+                    print("Request Vector Index Service Error")
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1306, in listen
+    response = await self.handle_message(await self.parse_response(block=True))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1193, in parse_response
+    response = await self._execute(
+               ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1150, in _execute
+    response = await conn.retry.call_with_retry(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 76, in call_with_retry
+    await fail(error, failures)
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1124, in _reconnect
+    await conn.connect()
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 340, in connect
+    await self.retry.call_with_retry(
+    ...<7 lines>...
+    )
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 81, in call_with_retry
+    raise error
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 69, in call_with_retry
+    return await do()
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 397, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 22 connecting to localhost:6379. The remote computer refused the network connection.
+2026-05-02 01:38:50,925 - root - ERROR - Something wrong happened. Error 22 connecting to localhost:6379. The remote computer refused the network connection.
+Traceback (most recent call last):
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 69, in call_with_retry
+    return await do()
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 734, in read_response
+    response = await self._parser.read_response(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        disable_decoding=disable_decoding
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\resp2.py", line 82, in read_response
+    response = await self._read_response(disable_decoding=disable_decoding)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\resp2.py", line 90, in _read_response
+    raw = await self._readline()
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\base.py", line 561, in _readline
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\document_db_service.py", line 88, in main
+    async for message in pubsub.listen():
+    ...<29 lines>...
+                    print("Request Document Database Service Error")
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1306, in listen
+    response = await self.handle_message(await self.parse_response(block=True))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1193, in parse_response
+    response = await self._execute(
+               ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1150, in _execute
+    response = await conn.retry.call_with_retry(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 76, in call_with_retry
+    await fail(error, failures)
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1124, in _reconnect
+    await conn.connect()
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 340, in connect
+    await self.retry.call_with_retry(
+    ...<7 lines>...
+    )
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 81, in call_with_retry
+    raise error
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 69, in call_with_retry
+    return await do()
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 397, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 22 connecting to localhost:6379. The remote computer refused the network connection.
+2026-05-02 01:38:51,350 - root - ERROR - Something wrong happened. Error 22 connecting to localhost:6379. The remote computer refused the network connection.
+Traceback (most recent call last):
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 69, in call_with_retry
+    return await do()
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 734, in read_response
+    response = await self._parser.read_response(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        disable_decoding=disable_decoding
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\resp2.py", line 82, in read_response
+    response = await self._read_response(disable_decoding=disable_decoding)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\resp2.py", line 90, in _read_response
+    raw = await self._readline()
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\_parsers\base.py", line 561, in _readline
+    raise ConnectionError(SERVER_CLOSED_CONNECTION_ERROR)
+redis.exceptions.ConnectionError: Connection closed by server.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\micha\OneDrive\Desktop\Boston University Class Files\2026 Junior Spring\EC 530 Software Engineering Principles\Repositories\image-retrieval-system\embedding_service.py", line 60, in main
+    async for message in pubsub.listen():
+    ...<23 lines>...
+                    print("Request Embedding Service Error")
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1306, in listen
+    response = await self.handle_message(await self.parse_response(block=True))
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1193, in parse_response
+    response = await self._execute(
+               ^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1150, in _execute
+    response = await conn.retry.call_with_retry(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 76, in call_with_retry
+    await fail(error, failures)
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\client.py", line 1124, in _reconnect
+    await conn.connect()
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 340, in connect
+    await self.retry.call_with_retry(
+    ...<7 lines>...
+    )
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 81, in call_with_retry
+    raise error
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\retry.py", line 69, in call_with_retry
+    return await do()
+           ^^^^^^^^^^
+  File "C:\Users\micha\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\redis\asyncio\connection.py", line 397, in connect_check_health
+    raise e
+redis.exceptions.ConnectionError: Error 22 connecting to localhost:6379. The remote computer refused the network connection.

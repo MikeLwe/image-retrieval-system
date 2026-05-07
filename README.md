@@ -88,3 +88,11 @@ SW - software?
 Mock-data
 
 mongosh
+
+## PROGRESS/TO-DO LIST 05/07
+- Complete mock implementation for embedding along with update message structure to include way to send the embedding message (unless decide to combine embedding with vector db?).
+- Double check if the database is working, fix any issues, add more unit tests
+- Complete the mock unit tests, ensuring they all pass
+- Attempt to implement PyTorch for machine learning's image object detection
+- Attempt to implement embedding systems work word labels (perhaps use Word2Vec)
+- Add more unit tests

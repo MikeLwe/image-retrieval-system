@@ -24,7 +24,7 @@ async def store_image_embed(image: ImagePayload):
         image.image_id,
         image.timestamp,
         image.path,
-        image.data, #MAY REMOVE
+        image.data,
         True
     )
     return confirm_image

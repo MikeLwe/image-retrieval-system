@@ -20,17 +20,20 @@ async def embed_image(image: ImagePayload):
     """
     Embeds Image file objects
     """
-    #figure out how this works...
-    #gets the DetectedObjects and stores them in the list
-    # if image.data[0].object.label == "logo":
-    #     data = DetectedObject.create("logo",0.0,0.0,263.0,148.0)
-    #     image.data.object = [data]
-    # elif image.data[0].object.label == "mascot":
-    #     data = []
-    #     image.data.object = [data]
-    # elif image.data[0].object.label == "seal":
-    #     data = DetectedObject.create("seal",0.0,0.0,255.0,255.0)
-    #     image.data.object = [data]
+    #figure out how this works... FUTURE--------------
+    # gets the DetectedObjects and stores them in the list
+    if image.data[0].object.label == "logo":
+        vector_stored = DetectedObject.create("logo",0.0,0.0,263.0,148.0)
+        image.data.object = [data]
+    elif image.data[0].object.label == "mascot":
+        data = []
+        image.data.object = [data]
+    elif image.data[0].object.label == "seal":
+        data = DetectedObject.create("seal",0.0,0.0,255.0,255.0)
+        image.data.object = [data]
+
+
+
     return image
 
 async def embed_request(request: RequestPayload):
